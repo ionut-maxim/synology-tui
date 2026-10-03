@@ -1,0 +1,26 @@
+# Tag vX.Y.Z → GoReleaser builds macOS/Linux binaries and a GitHub release,
+# which `mise use -g github:ionut-maxim/synology-tui` installs.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: jdx/mise-action@v5.0.1
+      - run: go test ./...
+      - uses: goreleaser/goreleaser-action@v7.2.3
+        with:
+          version: "~> v2"
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
