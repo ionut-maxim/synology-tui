@@ -3,5 +3,17 @@
   "extends": [
     "config:recommended",
     "helpers:pinGitHubActionDigests"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Versions pinned in workflows with a '# renovate: datasource=\u2026 depName=\u2026' comment on the line above, such as the mise version that reads mise.lock.",
+      "managerFilePatterns": [
+        "/^\\.github/workflows/.+\\.ya?ml$/"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n\\s*\\w+:\\s*\"?(?<currentValue>[^\"\\s]+)\"?"
+      ]
+    }
   ]
 }

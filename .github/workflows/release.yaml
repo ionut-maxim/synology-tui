@@ -17,6 +17,11 @@ jobs:
         with:
           fetch-depth: 0
       - uses: jdx/mise-action@236a21c3b91f5db6d4e174b348674a0f0caac06d # v5.2.9
+        env:
+          MISE_LOCKED: "1" # install only what mise.lock records, checksums included
+        with:
+          # renovate: datasource=github-releases depName=jdx/mise
+          version: 2026.11.8 # reads mise.lock's format (older mise can't)
       - run: go test ./...
       - uses: goreleaser/goreleaser-action@a4f02ab5355a589de60d917a659ce617ed19b3de # v7.3.0
         with:
