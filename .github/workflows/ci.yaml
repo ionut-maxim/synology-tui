@@ -18,7 +18,7 @@ jobs:
           MISE_LOCKED: "1" # install only what mise.lock records, checksums included
         with:
           # renovate: datasource=github-releases depName=jdx/mise
-          version: 2026.11.9 # reads mise.lock's format (older mise can't)
+          version: 2026.11.10 # reads mise.lock's format (older mise can't)
       - run: test -z "$(gofmt -l .)" || { gofmt -l .; exit 1; }
       - run: go vet ./...
       - run: go test -race ./...
